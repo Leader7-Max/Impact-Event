@@ -1,7 +1,7 @@
 # 🎧 Dj Oxygène237 — Espace Prestations & Live
 
-Application web Streamlit personnelle : profil de l'artiste, galerie de prestations vidéo
-(TikTok / YouTube / Facebook) et annonces de lives.
+Application web Streamlit personnelle : profil et biographie, galerie de prestations vidéo
+(TikTok / YouTube / Facebook), annonces de lives, liste du matériel et demande de devis gratuit.
 
 ## 📁 Structure du dépôt GitHub
 
@@ -11,24 +11,38 @@ dj-oxygene237/
 ├── requirements.txt       ← les dépendances
 ├── README.md              ← ce guide
 ├── .streamlit/
-│   └── config.toml        ← thème (fichier "config.toml" à placer dans le dossier .streamlit)
+│   └── config.toml        ← thème (le fichier "config.toml" va dans le dossier .streamlit)
 └── assets/
-    └── dj_oxygene237.jpg  ← ta photo de profil (facultatif)
+    └── dj_oxygene237.jpg  ← photo de profil permanente (facultatif)
 ```
 
 > Sur GitHub (téléphone ou ordinateur) : *Add file → Create new file*, puis tape dans le nom
-> `.streamlit/config.toml` : le dossier se crée tout seul. Même principe pour `assets/dj_oxygene237.jpg`
-> (*Add file → Upload files* après avoir créé le dossier).
+> `.streamlit/config.toml` : le dossier se crée tout seul, puis colle le contenu du fichier.
+> Le fichier `config.toml` donne son thème sombre à l'application : ne l'oublie pas.
 
 ## ⚙️ Personnalisation (en haut de `app.py`, PARTIE 1)
 
+- `CONTACT_EMAIL` : **ton adresse email** (le bouton « Envoyer par email » du devis n'apparaît que si elle est renseignée)
 - `PHONE_DISPLAY` / `PHONE_INTL` : numéro de contact et WhatsApp
 - `TIKTOK_URL` : ton profil TikTok
+- `BIO_PARAGRAPHS` : ta biographie (`**mot**` = en gras)
+- `EQUIPMENT` : liste du matériel (quantité, désignation, caractéristique) et `VEHICLE_TEXT`
 - `PRESTATIONS_FIXES` / `LIVES_FIXES` : vidéos et lives toujours affichés (jamais perdus)
+
+## 📸 Photo de profil
+
+Deux façons :
+1. **Depuis l'application** : Espace gestion (bas de page) → *Photo de profil* → choisir une image → *Enregistrer*.
+   La photo est recadrée en carré automatiquement.
+2. **Photo permanente** : ajoute `assets/dj_oxygene237.jpg` dans le dépôt GitHub.
+   Elle est utilisée quand aucune photo n'a été envoyée depuis l'application.
+
+> Sur Streamlit Cloud, une photo envoyée depuis l'application disparaît au redémarrage :
+> elle est incluse dans la **sauvegarde** téléchargeable (restaurable), ou mets-la dans `assets/`.
 
 ## 🔐 Mot de passe de gestion (obligatoire pour publier)
 
-Les formulaires d'ajout et les boutons « Supprimer » sont réservés à Dj Oxygène237.
+Les formulaires d'ajout, la photo et les boutons « Supprimer » sont réservés à Dj Oxygène237.
 
 - **Streamlit Cloud** : ton app → *Settings → Secrets* → ajoute :
   ```
@@ -38,6 +52,11 @@ Les formulaires d'ajout et les boutons « Supprimer » sont réservés à Dj Oxy
 
 Ne mets jamais le mot de passe dans le code ou sur GitHub.
 Ensuite, ouvre **🔐 Espace gestion** en bas de la page et connecte-toi.
+
+## 🧾 Devis gratuit
+
+Le visiteur remplit le formulaire (nom, téléphone, événement, date, lieu, prestations souhaitées…)
+et obtient un résumé prêt à envoyer sur **WhatsApp** (+33 7 73 61 68 84) ou **par email**.
 
 ## 💻 Lancer en local
 
