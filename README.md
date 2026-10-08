@@ -1,36 +1,43 @@
-# 🎧 Impact Event
+# 🎧 Dj Oxygène237 — Espace Prestations & Live
 
-Application web mobile-friendly (Streamlit) du collectif **Impact Event**, basé à **Grenoble**
-(déplacements partout) : **DJ Mosi 🇨🇬 (à l'honneur) • DJ Oxygène 🇨🇲 • Espace MCs 🎤**.
-Accueil, équipe, galerie (likes / commentaires / partage WhatsApp), location de matériel,
-livre d'or et devis gratuit à envoyer par **WhatsApp ou par email**.
+Application web Streamlit personnelle : profil de l'artiste, galerie de prestations vidéo
+(TikTok / YouTube / Facebook) et annonces de lives.
 
-## 📁 Structure du projet
+## 📁 Structure du dépôt GitHub
 
 ```
-impact-event/
-├── app.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-├── .streamlit/config.toml
-├── assets/
-│   ├── logo.svg   → logo Impact Event
-│   ├── team/      → dj_mosi.jpg, dj_oxygene.jpg, mcs.jpg  (photos carrées, ~600x600 px)
-│   └── gallery/   → soiree_01.jpg, soiree_02.jpg, video_01.mp4
-└── data/          → créé automatiquement (likes, commentaires, livre d'or)
+dj-oxygene237/
+├── app.py                 ← l'application
+├── requirements.txt       ← les dépendances
+├── README.md              ← ce guide
+├── .streamlit/
+│   └── config.toml        ← thème (fichier "config.toml" à placer dans le dossier .streamlit)
+└── assets/
+    └── dj_oxygene237.jpg  ← ta photo de profil (facultatif)
 ```
 
-Si une photo, une vidéo ou le logo est absent, l'application affiche un visuel de remplacement.
+> Sur GitHub (téléphone ou ordinateur) : *Add file → Create new file*, puis tape dans le nom
+> `.streamlit/config.toml` : le dossier se crée tout seul. Même principe pour `assets/dj_oxygene237.jpg`
+> (*Add file → Upload files* après avoir créé le dossier).
 
-## ⚙️ Personnalisation (en haut de `app.py`)
+## ⚙️ Personnalisation (en haut de `app.py`, PARTIE 1)
 
-- `CONTACT_EMAIL` : **ton adresse email** (à remplacer, c'est elle qui reçoit les devis par email)
-- `PHONE_MOSI` / `PHONE_OXYGENE` : numéros WhatsApp (format international sans `+`)
-- `CITY` : ville de base (Grenoble)
-- `SOCIALS` : liens TikTok / YouTube / Facebook
-- `TEAM`, `EQUIPMENT`, `GALLERY` : textes, photos, matériel, médias
-- Mettre un autre membre à l'honneur : déplace `"featured": True` dans `TEAM`
+- `PHONE_DISPLAY` / `PHONE_INTL` : numéro de contact et WhatsApp
+- `TIKTOK_URL` : ton profil TikTok
+- `PRESTATIONS_FIXES` / `LIVES_FIXES` : vidéos et lives toujours affichés (jamais perdus)
+
+## 🔐 Mot de passe de gestion (obligatoire pour publier)
+
+Les formulaires d'ajout et les boutons « Supprimer » sont réservés à Dj Oxygène237.
+
+- **Streamlit Cloud** : ton app → *Settings → Secrets* → ajoute :
+  ```
+  ADMIN_PASSWORD = "ton-mot-de-passe"
+  ```
+- **En local** : crée `.streamlit/secrets.toml` avec la même ligne.
+
+Ne mets jamais le mot de passe dans le code ou sur GitHub.
+Ensuite, ouvre **🔐 Espace gestion** en bas de la page et connecte-toi.
 
 ## 💻 Lancer en local
 
@@ -41,16 +48,24 @@ streamlit run app.py
 
 ## 🚀 Déploiement gratuit (GitHub + Streamlit Community Cloud)
 
-1. Crée un compte sur [github.com](https://github.com) puis un **nouveau dépôt** (ex. `impact-event`).
-2. Envoie tous les fichiers du projet (*Add file → Upload files*).
-3. Va sur [share.streamlit.io](https://share.streamlit.io) et connecte-toi avec GitHub.
-4. Clique sur **Create app** → choisis ton dépôt, la branche `main` et le fichier `app.py`.
-5. Clique sur **Deploy**.
-6. Copie l'URL obtenue dans `APP_URL` (dans `app.py`).
+1. Crée un dépôt GitHub (ex. `dj-oxygene237`) et ajoute les fichiers ci-dessus.
+2. Va sur [share.streamlit.io](https://share.streamlit.io) et connecte-toi avec GitHub.
+3. *Create app* → choisis ton dépôt, la branche `main` et le fichier `app.py` → *Deploy*.
+4. Ajoute `ADMIN_PASSWORD` dans *Settings → Secrets* (voir plus haut).
 
-## ⚠️ Persistance des données
+## ⚠️ Données et sauvegarde
 
-Sur Streamlit Community Cloud, le disque est **temporaire** : les likes, commentaires
-et messages du livre d'or sont **effacés** à chaque redémarrage de l'application.
-Pour une sauvegarde durable, branche Supabase, Firebase ou Google Sheets en remplaçant
-`load_data()` / `save_data()` dans `app.py`.
+Les vidéos et annonces ajoutées via les formulaires sont stockées dans `data/oxygene237.json`.
+Sur Streamlit Cloud, ce disque est **temporaire** : elles sont perdues au redémarrage de l'app.
+
+- Télécharge régulièrement la **sauvegarde** dans l'Espace gestion (et restaure-la si besoin).
+- Mets tes contenus importants dans `PRESTATIONS_FIXES` / `LIVES_FIXES` : ils sont dans le code.
+
+## 🎬 Liens vidéo acceptés
+
+- **YouTube** : liens `youtube.com/watch?v=…`, `youtu.be/…`, `/shorts/…`
+- **TikTok** : lien complet `tiktok.com/@dj.oxygene237/video/…` (les liens courts `vm.tiktok.com` ne s'intègrent pas)
+- **Facebook** : lien d'une vidéo publique
+- **Fichier direct** : lien finissant par `.mp4`, `.webm`, `.mov`…
+
+Les lives TikTok ne peuvent pas être intégrés dans la page : ils sont annoncés avec un bouton qui ouvre TikTok.
